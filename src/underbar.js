@@ -189,9 +189,24 @@
     }, false);
   };
 
-
+_.every = function(collection, iterator) {
   // Determine whether all of the elements match a truth test.
-  _.every = function(collection, iterator) {
+  // var testOne = [{'name':'bob', 'age':10},{'name':'sally', 'age':12}];
+  // var testTwo = [{'name':'bob', 'age':10},{'race':'white', 'height':'tall'}];
+
+    // return _.each(collection, function(x){
+    //   return _.reduce(x, function(wasFound,item) {
+    //     if (wasFound == false) {
+    //       return false;
+    //     };
+    //     if (item == iterator) {
+    //       return true;
+    //     } else {
+    //       return false;
+    //     }
+    //   }, true);
+    // })
+
     // TIP: Try re-using reduce() here.
   };
 
@@ -221,11 +236,26 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+     _.each(arguments, function(x,y,z){
+      for (var i in x){
+       obj[i] = x[i];
+     }
+   })
+     return obj;
   };
+
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    _.each(arguments, function(x){
+      for (var i in x){
+        if (typeof obj[i] == "undefined"){
+       obj[i] = x[i];
+      }
+     }
+   })
+     return obj;
   };
 
 
@@ -269,6 +299,7 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+
   };
 
   // Delays a function for the given number of milliseconds, and then calls
