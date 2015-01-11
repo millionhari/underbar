@@ -55,7 +55,7 @@
       for (var i in collection) {
         iterator(collection[i], i, collection);
       }
-    }
+    } 
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
@@ -189,31 +189,36 @@
     }, false);
   };
 
-_.every = function(collection, iterator) {
-  // Determine whether all of the elements match a truth test.
-  // var testOne = [{'name':'bob', 'age':10},{'name':'sally', 'age':12}];
-  // var testTwo = [{'name':'bob', 'age':10},{'race':'white', 'height':'tall'}];
-
-    // return _.each(collection, function(x){
-    //   return _.reduce(x, function(wasFound,item) {
-    //     if (wasFound == false) {
-    //       return false;
-    //     };
-    //     if (item == iterator) {
-    //       return true;
-    //     } else {
-    //       return false;
-    //     }
-    //   }, true);
-    // })
-
+  _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    if (iterator === undefined) {
+      iterator = _.identity;
+    }
+
+    return _.reduce(collection, function(wasFound, item) {
+      if (!wasFound) {
+        return false;
+      } else {
+        return Boolean(iterator(item));
+      }
+    }, true)
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
-    // TIP: There's a very clever way to re-use every() here.
+    //  TIP: There's a very clever way to re-use every() here.
+    if (iterator === undefined) {
+      iterator = _.identity;
+    }
+
+    return _.reduce(collection, function(wasFound, item) {
+      if (wasFound) {
+        return true;
+      } else {
+        return Boolean(iterator(item));
+      }
+    }, false)
   };
 
 
